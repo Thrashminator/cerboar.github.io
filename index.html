@@ -96,14 +96,15 @@
         }
 
         /* Кнопки-ссылки */
-        .metal-btn {
+        /* Кнопка */
+.metal-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 68px; /* Увеличили высоту кнопки (было 60px) */
+    justify-content: center; /* Текст встает ровно по центру кнопки */
+    height: 68px;
     text-decoration: none;
     color: #e0e0e0;
-    font-size: 16px; /* Можно при желании поставить 17px-18px */
+    font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -117,17 +118,20 @@
     border-bottom: 2px solid #111;
     box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 5px 10px rgba(0,0,0,0.5);
     transition: transform 0.2s, filter 0.2s;
-    position: relative;
-    padding: 0 15px;
+    
+    position: relative; /* Для абсолютного позиционирования иконки */
+    padding: 0 20px 0 50px; /* Делаем отступ слева, чтобы текст не налезал на иконку */
 }
 
-        /* Иконка внутри кнопки */
-        .btn-icon {
-    width: 30px; /* Увеличили размер иконки (было 24px) */
+/* Иконка - жестко привязана к левому краю */
+.btn-icon {
+    position: absolute;
+    left: 20px; /* Отступ 20px от левого края кнопки (все иконки встанут в одну линию) */
+    top: 50%;
+    transform: translateY(-50%); /* Идеальное центрирование по вертикали */
+    width: 30px;
     height: 30px;
-    margin-right: 12px; /* Чуть добавили отступ до текста */
-    object-fit: contain; /* Чтобы иконка не искажалась */
-    /* Строчку filter с drop-shadow убрали — свечения больше нет */
+    object-fit: contain;
 }
 
         /* Общие настройки для текста кнопки (если понадобится) */
@@ -237,7 +241,7 @@
             <!-- 8-я кнопка для симметрии (пример: Email) -->
             <a href="https://www.facebook.com/groups/1230404839211631/" class="metal-btn">
                 <img src="fb.png" alt="Facebook" class="btn-icon">
-                <span class="btn-text">Contact Us</span>
+                <span class="btn-text">Facebook</span>
             </a>
         </div>
 
