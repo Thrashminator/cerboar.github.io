@@ -164,12 +164,11 @@
         .carousel-slide {
             flex: 0 0 100%;
             width: 100%;
-            aspect-ratio: 16 / 9; 
-            object-fit: cover;
+            aspect-ratio: 3 / 2; /* Изменили 16/9 на оригинальную пропорцию фото 3/2 */
+            object-fit: cover; /* Возвращаем cover, обрезаться больше ничего не будет! */
             scroll-snap-align: start;
-            cursor: pointer; /* Курсор в виде пальца при наведении на фото */
+            cursor: pointer; 
         }
-
         .carousel-btn {
             position: absolute;
             top: 50%;
