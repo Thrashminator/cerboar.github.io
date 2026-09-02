@@ -70,8 +70,8 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            z-index: -1; /* Отправляем фон на задний план */
-            pointer-events: none; /* Чтобы фон не мешал кликать по кнопкам */
+            z-index: -1; 
+            pointer-events: none; 
         }
 
         /* Главный контейнер */
@@ -164,11 +164,13 @@
         .carousel-slide {
             flex: 0 0 100%;
             width: 100%;
-            aspect-ratio: 3 / 2; /* Изменили 16/9 на оригинальную пропорцию фото 3/2 */
-            object-fit: cover; /* Возвращаем cover, обрезаться больше ничего не будет! */
+            /* ИЗМЕНЕНА ПРОПОРЦИЯ ДЛЯ ФОТОГРАФИЙ 3:2 (вместо 16:9) */
+            aspect-ratio: 3 / 2; 
+            object-fit: cover;
             scroll-snap-align: start;
             cursor: pointer; 
         }
+
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -207,7 +209,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9); 
+            background-color: rgba(0, 0, 0, 0.95); 
             backdrop-filter: blur(5px); 
             align-items: center;
             justify-content: center;
@@ -215,7 +217,7 @@
 
         .modal-content {
             max-width: 95vw; 
-            max-height: 95vh; 
+            max-height: 90vh; 
             object-fit: contain; 
             border-radius: 4px;
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
@@ -235,7 +237,41 @@
         }
 
         .modal-close:hover {
-            color: #666;
+            color: #888;
+        }
+
+        /* Кнопки перелистывания внутри модального окна */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 10000;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .modal-nav:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-nav.prev {
+            left: 10px;
+        }
+
+        .modal-nav.next {
+            right: 10px;
+        }
+
+        /* Адаптация кнопок модалки для больших экранов */
+        @media (min-width: 768px) {
+            .modal-nav.prev { left: 40px; }
+            .modal-nav.next { right: 40px; }
         }
 
         @keyframes zoomIn {
@@ -405,7 +441,7 @@
                 Що означає наша назва? Це симбіоз Цербера (який охороняє вхід до пекла) та  слова BOAR (кабан). Тому концептуально ми — трьохголовий інфернальний кабан, який харчується пивом і душами позерів. <br><br>
                 Наразі ми генеруємо максимально важкі рифи та знаходимося в процесі створення нашого дебютного альбому.
             </p>
-        
+        </div>
         
         <div class="carousel-wrapper">
             <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
@@ -422,41 +458,20 @@
 
             <button class="carousel-btn next" id="nextBtn">&#10095;</button>
         </div>
-            </div>
         
         <!-- КНОПКИ ССЫЛОК С ИКОНКАМИ -->
         <div class="section-title">Follow Us</div>
         <div class="links-grid">
-        <!--    <a href="SPOTIFY_LINK" class="metal-btn" target="_blank">
-                <img src="sp.png" alt="Spotify" class="btn-icon">
-                <span class="btn-text">Spotify</span>
-            </a>
-            
-            <a href="APPLE_MUSIC_LINK" class="metal-btn" target="_blank">
-                <img src="am.png" alt="Apple Music" class="btn-icon">
-                <span class="btn-text">Apple Music</span>
-            </a>
-            -->
             <a href="https://www.youtube.com/@Cerboarband" class="metal-btn" target="_blank">
                 <img src="yt.png" alt="YouTube" class="btn-icon">
                 <span class="btn-text">YouTube</span>
             </a>
-            <!--
-            <a href="BANDCAMP_LINK" class="metal-btn" target="_blank">
-                <img src="bc.png" alt="Bandcamp" class="btn-icon">
-                <span class="btn-text">Bandcamp</span>
-            </a>
-            -->
+            
             <a href="https://t.me/cerboar" class="metal-btn" target="_blank">
                 <img src="tg.png" alt="Telegram" class="btn-icon">
                 <span class="btn-text">TELEGRAM</span>
             </a>
-            <!--
-            <a href="INSTAGRAM_LINK" class="metal-btn" target="_blank">
-                <img src="ig.png" alt="Instagram" class="btn-icon">
-                <span class="btn-text">Instagram</span>
-            </a>
-            -->
+            
             <a href="https://www.tiktok.com/@cerboar?_r=1&_t=ZN-98NekW9Pifm" class="metal-btn" target="_blank">
                 <img src="tt.png" alt="TikTok" class="btn-icon">
                 <span class="btn-text">TikTok</span>
@@ -476,10 +491,12 @@
 
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА ФОТО -->
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА ФОТО С КНОПКАМИ -->
     <div id="imageModal" class="modal">
         <span class="modal-close" id="modalClose">&times;</span>
+        <button class="modal-nav prev" id="modalPrev">&#10094;</button>
         <img class="modal-content" id="modalImg" alt="CERBOAR Full Image">
+        <button class="modal-nav next" id="modalNext">&#10095;</button>
     </div>
     
 <div class="seo-text">
@@ -500,9 +517,12 @@
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImg');
         const closeModal = document.getElementById('modalClose');
+        const modalPrev = document.getElementById('modalPrev');
+        const modalNext = document.getElementById('modalNext');
 
         let currentIndex = 0;
         let autoPlayTimer;
+        let currentModalIndex = 0; // Запоминает, какая фотка открыта в галерее
 
         // --- ЛОГИКА КАРУСЕЛИ ---
         function goToSlide(index) {
@@ -556,19 +576,45 @@
         });
 
         // --- ЛОГИКА УВЕЛИЧЕНИЯ ФОТО (MODAL) ---
-        slides.forEach(slide => {
+        slides.forEach((slide, index) => {
             slide.addEventListener('click', function() {
                 modal.style.display = "flex"; 
                 modalImg.src = this.src; 
-                clearInterval(autoPlayTimer); // Останавливаем листание
+                currentModalIndex = index; // Сохраняем номер фотки
+                clearInterval(autoPlayTimer); // Останавливаем фоновое листание карусели
             });
         });
 
-        closeModal.addEventListener('click', () => {
-            modal.style.display = "none";
-            startAutoPlay(); // Возобновляем листание
+        // Функция смены фото внутри модального окна
+        function changeModalSlide(direction) {
+            currentModalIndex += direction;
+            if (currentModalIndex < 0) {
+                currentModalIndex = slides.length - 1; // Зацикливаем назад
+            } else if (currentModalIndex >= slides.length) {
+                currentModalIndex = 0; // Зацикливаем вперед
+            }
+            modalImg.src = slides[currentModalIndex].src;
+        }
+
+        // Кнопка влево
+        modalPrev.addEventListener('click', (e) => {
+            e.stopPropagation(); // Чтобы клик по кнопке не закрыл модалку (иначе сработает клик по фону)
+            changeModalSlide(-1);
         });
 
+        // Кнопка вправо
+        modalNext.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            changeModalSlide(1);
+        });
+
+        // Закрытие по крестику
+        closeModal.addEventListener('click', () => {
+            modal.style.display = "none";
+            startAutoPlay(); // Возобновляем листание фоновой карусели
+        });
+
+        // Закрытие по клику мимо фото
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.style.display = "none";
