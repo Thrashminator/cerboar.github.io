@@ -1,38 +1,34 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MusicGroup",
-  "name": "CERBOAR",
-  "url": "https://cerboar.com",
-  "genre": ["Groove Metal", "Sludge Metal", "Stoner Rock", "Thrash Metal"],
-  "description": "Официальный сайт группы CERBOAR. Ссылки на стриминги Spotify, Apple Music, Bandcamp и соцсети."
-}
-</script>
+    {
+      "@context": "https://schema.org",
+      "@type": "MusicGroup",
+      "name": "CERBOAR",
+      "url": "https://cerboar.com",
+      "genre": ["Groove Metal", "Sludge Metal", "Stoner Rock", "Thrash Metal"],
+      "description": "Официальный сайт группы CERBOAR. Ссылки на стриминги Spotify, Apple Music, Bandcamp и соцсети."
+    }
+    </script>
     
-    <!-- ИКОНКА ВКЛАДКИ (FAVICON) -->
     <link rel="icon" type="image/png" href="favicon.png">
-    <!-- Для сохранения на рабочий стол на iPhone -->
     <link rel="apple-touch-icon" href="favicon.png">
     
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JWBKLHH4D0"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-JWBKLHH4D0');
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CERBOAR — метал-гурт. Офіційні стрімінги, кліпи, треки в Spotify, Apple Music та свіжі новини гурту.">
+    <meta name="description" content="CERBOAR — metal band. Official streaming, clips, tracks on Spotify, Apple Music, and fresh band news.">
     <meta name="keywords" content="CERBOAR, CERBOAR band, groove metal, sludge metal, stoner rock, thrash metal, metal band">
     <title>CERBOAR BAND</title>
+    
     <style>
         /* Скрытый текст исключительно для поисковых роботов Google/SEO */
         .seo-text {
@@ -82,6 +78,41 @@
             box-sizing: border-box;
             text-align: center;
             margin: 0 auto;
+            position: relative;
+        }
+
+        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
+        .lang-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: rgba(20, 20, 20, 0.8);
+            color: #888;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: rgba(50, 50, 50, 0.9);
+            color: #fff;
+        }
+
+        .lang-btn.active {
+            background: #333;
+            color: #fff;
+            border-color: #777;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
         }
 
         /* Логотип */
@@ -164,7 +195,6 @@
         .carousel-slide {
             flex: 0 0 100%;
             width: 100%;
-            /* ИЗМЕНЕНА ПРОПОРЦИЯ ДЛЯ ФОТОГРАФИЙ 3:2 (вместо 16:9) */
             aspect-ratio: 3 / 2; 
             object-fit: cover;
             scroll-snap-align: start;
@@ -198,9 +228,7 @@
             right: 10px;
         }
 
-        /* ========================================= */
-        /* Модальное окно для полноэкранных фото     */
-        /* ========================================= */
+        /* Модальное окно для полноэкранных фото */
         .modal {
             display: none; 
             position: fixed;
@@ -240,7 +268,6 @@
             color: #888;
         }
 
-        /* Кнопки перелистывания внутри модального окна */
         .modal-nav {
             position: absolute;
             top: 50%;
@@ -268,10 +295,17 @@
             right: 10px;
         }
 
-        /* Адаптация кнопок модалки для больших экранов */
         @media (min-width: 768px) {
             .modal-nav.prev { left: 40px; }
             .modal-nav.next { right: 40px; }
+            
+            /* Выносим переключатель языков в угол на ПК */
+            .lang-switcher {
+                position: absolute;
+                top: 20px;
+                right: 40px;
+                margin-bottom: 0;
+            }
         }
 
         @keyframes zoomIn {
@@ -279,9 +313,7 @@
             to {transform: scale(1); opacity: 1;}
         }
 
-        /* ========================================= */
-        /* Блок биографии                            */
-        /* ========================================= */
+        /* Блок биографии */
         .bio-section {
             background: rgba(20, 20, 20, 0.7); 
             border-top: 2px solid #444;
@@ -356,9 +388,7 @@
             color: #ffffff;
         }
 
-        /* ========================================= */
-        /* Футер (Подвал сайта)                      */
-        /* ========================================= */
+        /* Футер (Подвал сайта) */
         .site-footer {
             margin-top: 20px;
             padding-top: 20px;
@@ -383,7 +413,7 @@
             color: #fff;
         }
 
-        /* АДАПТАЦИЯ ДЛЯ ПК (экраны шире 768px) */
+        /* АДАПТАЦИЯ ДЛЯ ПК */
         @media (min-width: 768px) {
             .container {
                 max-width: 900px;
@@ -416,13 +446,16 @@
 
     <div class="container">
         
-        <!-- ЛОГОТИП -->
-        <img src="logo.webp" alt="Логотип группы" class="logo">
-        
-        <!-- ЗАГОЛОВОК СЕКЦИИ С МУЗЫКОЙ -->
-        <div class="section-title">Our Music</div>
+        <div class="lang-switcher">
+            <button class="lang-btn" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="uk">UA</button>
+            <button class="lang-btn" data-lang="pl">PL</button>
+        </div>
 
-        <!-- БЛОК С ПЛЕЕРАМИ -->
+        <img src="logo.webp" alt="CERBOAR Logo" class="logo">
+        
+        <div class="section-title" data-i18n="musicTitle">Our Music</div>
+
         <div class="media-grid">
             <div class="embed-section">
                 <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://www.youtube.com/embed/_ibbh9aaDWA?si=d9oAO_svQzM7mJX_" width="100%" height="460" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -433,36 +466,32 @@
             </div>
         </div>
 
-        <!-- БЛОК БИОГРАФИИ -->
-        <div class="section-title">About Us</div>
+        <div class="section-title" data-i18n="aboutTitle">About Us</div>
         <div class="bio-section">
             <p class="bio-text">
-                <strong>CERBOAR</strong> — метал-гурт, що грає на стику Groove, Sludge, Stoner та Thrash Metal. <br><br>
-                Що означає наша назва? Це симбіоз Цербера (який охороняє вхід до пекла) та  слова BOAR (кабан). Тому концептуально ми — трьохголовий інфернальний кабан, який харчується пивом і душами позерів. <br><br>
-                Наразі ми генеруємо максимально важкі рифи та знаходимося в процесі створення нашого дебютного альбому.
+                <strong data-i18n="bio1">CERBOAR is a metal band playing at the intersection of Groove, Sludge, Stoner, and Thrash Metal.</strong> <br><br>
+                <span data-i18n="bio2">What does our name mean? It's a symbiosis of Cerberus (guarding the gates of hell) and the word BOAR. Conceptually, we are a three-headed infernal boar feeding on beer and posers' souls.</span> <br><br>
+                <span data-i18n="bio3">Currently, we are generating the heaviest riffs possible and are in the process of creating our debut album.</span>
             </p>
         
-        
-        <div class="carousel-wrapper">
-            <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
-            
-            <div class="carousel-track" id="carouselTrack">
-                <img src="5.jpg" alt="CERBOAR Live 5" class="carousel-slide">
-                <img src="1.jpg" alt="CERBOAR Live 1" class="carousel-slide">
-                <img src="2.jpg" alt="CERBOAR Live 2" class="carousel-slide">
-                <img src="3.jpg" alt="CERBOAR Live 3" class="carousel-slide">
-                <img src="4.jpg" alt="CERBOAR Live 4" class="carousel-slide">
-                <img src="6.jpg" alt="CERBOAR Live 6" class="carousel-slide">
-                <img src="7.jpg" alt="CERBOAR Live 7" class="carousel-slide">
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+                
+                <div class="carousel-track" id="carouselTrack">
+                    <img src="5.jpg" alt="CERBOAR Live 5" class="carousel-slide">
+                    <img src="1.jpg" alt="CERBOAR Live 1" class="carousel-slide">
+                    <img src="2.jpg" alt="CERBOAR Live 2" class="carousel-slide">
+                    <img src="3.jpg" alt="CERBOAR Live 3" class="carousel-slide">
+                    <img src="4.jpg" alt="CERBOAR Live 4" class="carousel-slide">
+                    <img src="6.jpg" alt="CERBOAR Live 6" class="carousel-slide">
+                    <img src="7.jpg" alt="CERBOAR Live 7" class="carousel-slide">
+                </div>
+                
+                <button class="carousel-btn next" id="nextBtn">&#10095;</button>
             </div>
-            
-
-            <button class="carousel-btn next" id="nextBtn">&#10095;</button>
         </div>
-            </div>
         
-        <!-- КНОПКИ ССЫЛОК С ИКОНКАМИ -->
-        <div class="section-title">Follow Us</div>
+        <div class="section-title" data-i18n="followTitle">Follow Us</div>
         <div class="links-grid">
             <a href="https://www.youtube.com/@Cerboarband" class="metal-btn" target="_blank">
                 <img src="yt.png" alt="YouTube" class="btn-icon">
@@ -479,21 +508,19 @@
                 <span class="btn-text">TikTok</span>
             </a>
             
-            <a href="https://www.facebook.com/groups/1230404839211631/" class="metal-btn">
+            <a href="https://www.facebook.com/groups/1230404839211631/" class="metal-btn" target="_blank">
                 <img src="fb.png" alt="Facebook" class="btn-icon">
                 <span class="btn-text">Facebook</span>
             </a>
         </div>
 
-        <!-- ФУТЕР -->
         <footer class="site-footer">
             <div>Booking & Management: <a href="mailto:cerboarband@gmail.com">cerboarband@gmail.com</a></div>
-            <div>&copy; 2026 CERBOAR. All rights reserved.</div>
+            <div>&copy; 2026 CERBOAR. <span data-i18n="rights">All rights reserved.</span></div>
         </footer>
 
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА ФОТО С КНОПКАМИ -->
     <div id="imageModal" class="modal">
         <span class="modal-close" id="modalClose">&times;</span>
         <button class="modal-nav prev" id="modalPrev">&#10094;</button>
@@ -501,21 +528,101 @@
         <button class="modal-nav next" id="modalNext">&#10095;</button>
     </div>
     
-<div class="seo-text">
-    <h1>CERBOAR BAND</h1>
-    <p>Офіційний сайт гурту CERBOAR. Важка музика, groove metal, sludge, stoner rock, thrash metal. Слухайте наші треки та альбоми на Spotify, Apple Music, Bandcamp, дивіться кліпи на YouTube та TikTok</p>
-    <p>Официальный сайт группы CERBOAR. Тяжелая музыка, groove metal, sludge, stoner rock, thrash metal. Слушайте наши треки и альбомы на Spotify, Apple Music, Bandcamp, смотрите клипы на YouTube и TikTok.</p>
-</div>
+    <div class="seo-text">
+        <h1>CERBOAR BAND</h1>
+        <p>CERBOAR official website. Heavy music, groove metal, sludge, stoner rock, thrash metal. Listen to our tracks and albums on Spotify, Apple Music, Bandcamp, watch videos on YouTube and TikTok.</p>
+        <p>Офіційний сайт гурту CERBOAR. Важка музика, groove metal, sludge, stoner rock, thrash metal. Слухайте наші треки та альбоми на Spotify, Apple Music, Bandcamp, дивіться кліпи на YouTube та TikTok</p>
+        <p>Oficjalna strona zespołu CERBOAR. Ciężka muzyka, groove metal, sludge, stoner rock, thrash metal. Słuchaj naszych utworów na Spotify, Apple Music, Bandcamp, oglądaj teledyski na YouTube i TikTok.</p>
+    </div>
 
-<!-- СКРИПТ ДЛЯ РАБОТЫ КАРУСЕЛИ И МОДАЛЬНОГО ОКНА -->
 <script>
+    // === СЛОВАРЬ ПЕРЕВОДОВ ===
+    const translations = {
+        en: {
+            musicTitle: "Our Music",
+            aboutTitle: "About Us",
+            bio1: "CERBOAR — metal band playing at the intersection of Groove, Sludge, Stoner, and Thrash Metal.",
+            bio2: "What does our name mean? It's a symbiosis of Cerberus (guarding the gates of hell) and the word BOAR. Conceptually, we are a three-headed infernal boar feeding on beer and posers' souls.",
+            bio3: "Currently, we are generating the heaviest riffs possible and are in the process of creating our debut album.",
+            followTitle: "Follow Us",
+            rights: "All rights reserved."
+        },
+        uk: {
+            musicTitle: "Наша музика",
+            aboutTitle: "Про нас",
+            bio1: "CERBOAR — метал-гурт, що грає на стику Groove, Sludge, Stoner та Thrash Metal.",
+            bio2: "Що означає наша назва? Це симбіоз Цербера (який охороняє вхід до пекла) та слова BOAR (кабан). Тому концептуально ми — трьохголовий інфернальний кабан, який харчується пивом і душами позерів.",
+            bio3: "Наразі ми генеруємо максимально важкі рифи та знаходимося в процесі створення нашого дебютного альбому.",
+            followTitle: "Підписуйтесь",
+            rights: "Всі права захищені."
+        },
+        pl: {
+            musicTitle: "Nasza Muzyka",
+            aboutTitle: "O Nas",
+            bio1: "CERBOAR — zespół metalowy grający na pograniczu Groove, Sludge, Stoner i Thrash Metalu.",
+            bio2: "Co oznacza nasza nazwa? To symbioza Cerbera (strzegącego bram piekieł) i słowa BOAR (dzik). Konceptualnie jesteśmy trójgłowym piekielnym dzikiem, który żywi się piwem i duszami pozerów.",
+            bio3: "Obecnie generujemy maksymalnie ciężkie riffy i jesteśmy w trakcie tworzenia naszego debiutanckiego albumu.",
+            followTitle: "Obserwuj nas",
+            rights: "Wszelkie prawa zastrzeżone."
+        }
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
+        
+        // === ЛОГИКА МУЛЬТИЯЗЫЧНОСТИ ===
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const elementsToTranslate = document.querySelectorAll('[data-i18n]');
+
+        // Функция смены языка
+        function setLanguage(lang) {
+            // Меняем текст во всех элементах с атрибутом data-i18n
+            elementsToTranslate.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key]; // innerHTML, чтобы срабатывал <br> если нужно
+                }
+            });
+
+            // Обновляем активную кнопку
+            langButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+
+            // Сохраняем выбор в браузере и меняем тег lang в HTML (полезно для SEO и читалок)
+            localStorage.setItem('cerboar_lang', lang);
+            document.documentElement.lang = lang;
+        }
+
+        // Обработчик клика по кнопкам языка
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const selectedLang = btn.getAttribute('data-lang');
+                setLanguage(selectedLang);
+            });
+        });
+
+        // АВТООПРЕДЕЛЕНИЕ ПРИ ЗАГРУЗКЕ
+        let savedLang = localStorage.getItem('cerboar_lang');
+        if (!savedLang) {
+            // Если юзер зашел впервые, проверяем его браузер
+            const browserLang = (navigator.language || navigator.userLanguage).slice(0, 2).toLowerCase();
+            if (browserLang === 'uk' || browserLang === 'ru') { 
+                // можно добавить 'ru', чтобы им тоже открывало укр. версию по умолчанию, если нужно
+                savedLang = 'uk';
+            } else if (browserLang === 'pl') {
+                savedLang = 'pl';
+            } else {
+                savedLang = 'en'; // Для всех остальных стран - английский
+            }
+        }
+        setLanguage(savedLang);
+
+
+        // === ЛОГИКА КАРУСЕЛИ И МОДАЛКИ (оставил без изменений) ===
         const track = document.getElementById('carouselTrack');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const slides = document.querySelectorAll('.carousel-slide');
         
-        // Переменные модального окна
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImg');
         const closeModal = document.getElementById('modalClose');
@@ -524,9 +631,8 @@
 
         let currentIndex = 0;
         let autoPlayTimer;
-        let currentModalIndex = 0; // Запоминает, какая фотка открыта в галерее
+        let currentModalIndex = 0; 
 
-        // --- ЛОГИКА КАРУСЕЛИ ---
         function goToSlide(index) {
             if (index < 0) {
                 index = slides.length - 1; 
@@ -577,46 +683,40 @@
             goToSlide(currentIndex);
         });
 
-        // --- ЛОГИКА УВЕЛИЧЕНИЯ ФОТО (MODAL) ---
         slides.forEach((slide, index) => {
             slide.addEventListener('click', function() {
                 modal.style.display = "flex"; 
                 modalImg.src = this.src; 
-                currentModalIndex = index; // Сохраняем номер фотки
-                clearInterval(autoPlayTimer); // Останавливаем фоновое листание карусели
+                currentModalIndex = index; 
+                clearInterval(autoPlayTimer); 
             });
         });
 
-        // Функция смены фото внутри модального окна
         function changeModalSlide(direction) {
             currentModalIndex += direction;
             if (currentModalIndex < 0) {
-                currentModalIndex = slides.length - 1; // Зацикливаем назад
+                currentModalIndex = slides.length - 1; 
             } else if (currentModalIndex >= slides.length) {
-                currentModalIndex = 0; // Зацикливаем вперед
+                currentModalIndex = 0; 
             }
             modalImg.src = slides[currentModalIndex].src;
         }
 
-        // Кнопка влево
         modalPrev.addEventListener('click', (e) => {
-            e.stopPropagation(); // Чтобы клик по кнопке не закрыл модалку (иначе сработает клик по фону)
+            e.stopPropagation(); 
             changeModalSlide(-1);
         });
 
-        // Кнопка вправо
         modalNext.addEventListener('click', (e) => {
             e.stopPropagation(); 
             changeModalSlide(1);
         });
 
-        // Закрытие по крестику
         closeModal.addEventListener('click', () => {
             modal.style.display = "none";
-            startAutoPlay(); // Возобновляем листание фоновой карусели
+            startAutoPlay(); 
         });
 
-        // Закрытие по клику мимо фото
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.style.display = "none";
