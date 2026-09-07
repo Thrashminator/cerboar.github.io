@@ -81,16 +81,22 @@
             position: relative;
         }
 
-        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
-        .lang-switcher {
+        /* ВЕРХНЯЯ ПАНЕЛЬ (Языки и Шаринг) */
+        .top-bar {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
             margin-bottom: 20px;
             z-index: 100;
         }
 
-        .lang-btn {
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn, .share-btn {
             background: rgba(20, 20, 20, 0.8);
             color: #888;
             border: 1px solid #444;
@@ -101,9 +107,12 @@
             font-size: 12px;
             text-transform: uppercase;
             transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .lang-btn:hover {
+        .lang-btn:hover, .share-btn:hover {
             background: rgba(50, 50, 50, 0.9);
             color: #fff;
         }
@@ -113,6 +122,13 @@
             color: #fff;
             border-color: #777;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        /* Иконка в кнопке "Поделиться" */
+        .share-btn svg {
+            margin-right: 6px;
+            width: 14px;
+            height: 14px;
         }
 
         /* Логотип */
@@ -295,19 +311,6 @@
             right: 10px;
         }
 
-        @media (min-width: 768px) {
-            .modal-nav.prev { left: 40px; }
-            .modal-nav.next { right: 40px; }
-            
-            /* Выносим переключатель языков в угол на ПК */
-            .lang-switcher {
-                position: absolute;
-                top: 20px;
-                right: 40px;
-                margin-bottom: 0;
-            }
-        }
-
         @keyframes zoomIn {
             from {transform: scale(0.9); opacity: 0;}
             to {transform: scale(1); opacity: 1;}
@@ -413,6 +416,11 @@
             color: #fff;
         }
 
+        /* БЛОК QR КОДА - ПО УМОЛЧАНИЮ СКРЫТ НА МОБИЛЬНЫХ */
+        .qr-widget {
+            display: none;
+        }
+
         /* АДАПТАЦИЯ ДЛЯ ПК */
         @media (min-width: 768px) {
             .container {
@@ -439,6 +447,45 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
             }
+
+            .modal-nav.prev { left: 40px; }
+            .modal-nav.next { right: 40px; }
+
+            /* ПОКАЗЫВАЕМ QR КОД ТОЛЬКО НА ПК */
+            .qr-widget {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                bottom: 25px;
+                right: 25px;
+                background: rgba(15, 15, 15, 0.85);
+                border: 1px solid #444;
+                padding: 15px;
+                border-radius: 8px;
+                align-items: center;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+                z-index: 100;
+                backdrop-filter: blur(5px);
+            }
+
+            .qr-text {
+                color: #aaa;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 12px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .qr-img {
+                width: 110px;
+                height: 110px;
+                border-radius: 4px;
+                background: #fff; /* Белый фон под QR на случай, если он с прозрачностью */
+                padding: 5px;
+                box-sizing: border-box;
+            }
         }
     </style>
 </head>
@@ -446,10 +493,24 @@
 
     <div class="container">
         
-        <div class="lang-switcher">
-            <button class="lang-btn" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="uk">UA</button>
-            <button class="lang-btn" data-lang="pl">PL</button>
+        <!-- Верхняя панель: Язык слева, Поделиться справа -->
+        <div class="top-bar">
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="uk">UA</button>
+                <button class="lang-btn" data-lang="pl">PL</button>
+            </div>
+            
+            <button class="share-btn" id="shareBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span data-i18n="shareBtn">Share</span>
+            </button>
         </div>
 
         <img src="logo.webp" alt="CERBOAR Logo" class="logo">
@@ -485,6 +546,7 @@
                     <img src="4.jpg" alt="CERBOAR Live 4" class="carousel-slide">
                     <img src="6.jpg" alt="CERBOAR Live 6" class="carousel-slide">
                     <img src="7.jpg" alt="CERBOAR Live 7" class="carousel-slide">
+                    <img src="8.webp" alt="CERBOAR Live 7" class="carousel-slide">
                 </div>
                 
                 <button class="carousel-btn next" id="nextBtn">&#10095;</button>
@@ -512,6 +574,11 @@
                 <img src="fb.png" alt="Facebook" class="btn-icon">
                 <span class="btn-text">Facebook</span>
             </a>
+			
+			<a href="https://www.instagram.com/cerboar_official/" class="metal-btn" target="_blank">
+                <img src="ig.png" alt="Instagram" class="btn-icon">
+                <span class="btn-text">INSTAGAM</span>
+            </a>
         </div>
 
         <footer class="site-footer">
@@ -528,6 +595,13 @@
         <button class="modal-nav next" id="modalNext">&#10095;</button>
     </div>
     
+    <!-- ВИДЖЕТ QR КОДА (отображается только на ПК) -->
+    <div class="qr-widget">
+        <div class="qr-text" data-i18n="qrText">View on mobile</div>
+        <!-- Не забудьте закинуть ваш QR код с названием qr.png в папку сайта -->
+        <img src="qr.png" alt="Mobile QR Code" class="qr-img"> 
+    </div>
+
     <div class="seo-text">
         <h1>CERBOAR BAND</h1>
         <p>CERBOAR official website. Heavy music, groove metal, sludge, stoner rock, thrash metal. Listen to our tracks and albums on Spotify, Apple Music, Bandcamp, watch videos on YouTube and TikTok.</p>
@@ -545,7 +619,9 @@
             bio2: "What does our name mean? It's a symbiosis of Cerberus (guarding the gates of hell) and the word BOAR. Conceptually, we are a three-headed infernal boar feeding on beer and posers' souls.",
             bio3: "Currently, we are generating the heaviest riffs possible and are in the process of creating our debut album.",
             followTitle: "Follow Us",
-            rights: "All rights reserved."
+            rights: "All rights reserved.",
+            shareBtn: "Share",
+            qrText: "View on mobile"
         },
         uk: {
             musicTitle: "Наша музика",
@@ -554,7 +630,9 @@
             bio2: "Що означає наша назва? Це симбіоз Цербера (який охороняє вхід до пекла) та слова BOAR (кабан). Тому концептуально ми — трьохголовий інфернальний кабан, який харчується пивом і душами позерів.",
             bio3: "Наразі ми генеруємо максимально важкі рифи та знаходимося в процесі створення нашого дебютного альбому.",
             followTitle: "Підписуйтесь",
-            rights: "Всі права захищені."
+            rights: "Всі права захищені.",
+            shareBtn: "Поділитися",
+            qrText: "Дивитись на мобільному"
         },
         pl: {
             musicTitle: "Nasza Muzyka",
@@ -563,7 +641,9 @@
             bio2: "Co oznacza nasza nazwa? To symbioza Cerbera (strzegącego bram piekieł) i słowa BOAR (dzik). Konceptualnie jesteśmy trójgłowym piekielnym dzikiem, który żywi się piwem i duszami pozerów.",
             bio3: "Obecnie generujemy maksymalnie ciężkie riffy i jesteśmy w trakcie tworzenia naszego debiutanckiego albumu.",
             followTitle: "Obserwuj nas",
-            rights: "Wszelkie prawa zastrzeżone."
+            rights: "Wszelkie prawa zastrzeżone.",
+            shareBtn: "Udostępnij",
+            qrText: "Otwórz na smartfonie"
         }
     };
 
@@ -573,26 +653,22 @@
         const langButtons = document.querySelectorAll('.lang-btn');
         const elementsToTranslate = document.querySelectorAll('[data-i18n]');
 
-        // Функция смены языка
         function setLanguage(lang) {
-            // Меняем текст во всех элементах с атрибутом data-i18n
             elementsToTranslate.forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key]; // innerHTML, чтобы срабатывал <br> если нужно
+                    el.innerHTML = translations[lang][key]; 
                 }
             });
 
-            // Обновляем активную кнопку
             langButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+            const activeBtn = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+            if(activeBtn) activeBtn.classList.add('active');
 
-            // Сохраняем выбор в браузере и меняем тег lang в HTML (полезно для SEO и читалок)
             localStorage.setItem('cerboar_lang', lang);
             document.documentElement.lang = lang;
         }
 
-        // Обработчик клика по кнопкам языка
         langButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const selectedLang = btn.getAttribute('data-lang');
@@ -603,21 +679,43 @@
         // АВТООПРЕДЕЛЕНИЕ ПРИ ЗАГРУЗКЕ
         let savedLang = localStorage.getItem('cerboar_lang');
         if (!savedLang) {
-            // Если юзер зашел впервые, проверяем его браузер
             const browserLang = (navigator.language || navigator.userLanguage).slice(0, 2).toLowerCase();
             if (browserLang === 'uk' || browserLang === 'ru') { 
-                // можно добавить 'ru', чтобы им тоже открывало укр. версию по умолчанию, если нужно
                 savedLang = 'uk';
             } else if (browserLang === 'pl') {
                 savedLang = 'pl';
             } else {
-                savedLang = 'en'; // Для всех остальных стран - английский
+                savedLang = 'en'; 
             }
         }
         setLanguage(savedLang);
 
+        // === ЛОГИКА КНОПКИ ПОДЕЛИТЬСЯ (Web Share API) ===
+        const shareBtn = document.getElementById('shareBtn');
+        if (shareBtn) {
+            shareBtn.addEventListener('click', async () => {
+                // Если браузер поддерживает нативное окно "Поделиться"
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: 'CERBOAR BAND',
+                            text: 'Listen to CERBOAR - Heavy Metal Band!',
+                            url: window.location.href
+                        });
+                    } catch (err) {
+                        console.log('Share canceled or failed', err);
+                    }
+                } else {
+                    // Резервный вариант для старых ПК-браузеров (копирование ссылки)
+                    navigator.clipboard.writeText(window.location.href)
+                        .then(() => alert('Link copied to clipboard!'))
+                        .catch(err => console.error('Error copying text: ', err));
+                }
+            });
+        }
 
-        // === ЛОГИКА КАРУСЕЛИ И МОДАЛКИ (оставил без изменений) ===
+
+        // === ЛОГИКА КАРУСЕЛИ И МОДАЛКИ ===
         const track = document.getElementById('carouselTrack');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
