@@ -140,6 +140,90 @@
             filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.8));
         }
 
+       /* --- ТАЙМЕР ОТСЧЕТА --- */
+        .release-timer-wrapper {
+            margin-bottom: 30px;
+            text-align: left;
+            background: linear-gradient(135deg, rgba(40,35,20,0.8) 0%, rgba(20,20,15,0.8) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .release-header {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Отступ между обложкой и текстом */
+            margin-bottom: 15px;
+        }
+
+        .single-cover {
+            width: 40px; /* Размер обложки */
+            height: 40px;
+            border-radius: 4px; /* Квадратная с легким скруглением */
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .release-title {
+            font-size: 13px;
+            color: #e0e0e0;
+            font-weight: bold;
+        }
+
+        .timer-box {
+            background: #1e1b18; 
+            border-radius: 8px;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .timer-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 55px;
+        }
+
+        .timer-num {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1;
+            margin-bottom: 8px;
+            font-family: 'Arial Black', Impact, sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .timer-label {
+            font-size: 11px;
+            color: #a0a0a0;
+            text-transform: capitalize;
+        }
+
+        .timer-separator {
+            width: 1px;
+            height: 30px;
+            background: rgba(255,255,255,0.15);
+            margin: 0 15px;
+        }
+        
+        #release-message {
+            display: none;
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
         /* Общие заголовки секций */
         .section-title {
             color: #888;
@@ -421,7 +505,13 @@
             display: none;
         }
 
-        /* АДАПТАЦИЯ ДЛЯ ПК */
+        /* АДАПТАЦИЯ ДЛЯ ПК и МОБИЛЬНЫХ */
+        @media (max-width: 420px) {
+            .timer-num { font-size: 24px; }
+            .timer-separator { margin: 0 10px; }
+            .timer-item { min-width: 45px; }
+        }
+
         @media (min-width: 768px) {
             .container {
                 max-width: 900px;
@@ -482,7 +572,7 @@
                 width: 110px;
                 height: 110px;
                 border-radius: 4px;
-                background: #fff; /* Белый фон под QR на случай, если он с прозрачностью */
+                background: #fff; 
                 padding: 5px;
                 box-sizing: border-box;
             }
@@ -515,6 +605,48 @@
 
         <img src="logo.webp" alt="CERBOAR Logo" class="logo">
         
+        <!-- === БЛОК ТАЙМЕРА === -->
+        <div class="release-timer-wrapper" id="timerContainer">
+            <div class="release-header">
+                <!-- Укажите путь к обложке сингла -->
+                <img src="cover.jpg" alt="Single Cover" class="single-cover">
+                <span class="release-title" data-i18n="releaseHeader">CERBOAR • New Single Release: Sep 24, 2026</span>
+            </div>
+            <div class="timer-box">
+                <div class="timer-item">
+                    <span class="timer-num" id="cd-days">0</span>
+                    <span class="timer-label" data-i18n="days">Days</span>
+                </div>
+                <div class="timer-separator"></div>
+                <div class="timer-item">
+                    <span class="timer-num" id="cd-hours">00</span>
+                    <span class="timer-label" data-i18n="hours">Hours</span>
+                </div>
+                <div class="timer-separator"></div>
+                <div class="timer-item">
+                    <span class="timer-num" id="cd-minutes">00</span>
+                    <span class="timer-label" data-i18n="minutes">Minutes</span>
+                </div>
+                <div class="timer-separator"></div>
+                <div class="timer-item">
+                    <span class="timer-num" id="cd-seconds">00</span>
+                    <span class="timer-label" data-i18n="seconds">Seconds</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Сообщение, которое появится, когда выйдет трек -->
+        <div id="release-message">
+            <span data-i18n="outNow">The single is OUT NOW! Listen on all platforms!</span>
+        </div>
+        <!-- ==================== -->
+        
+        <!-- Сообщение, которое появится, когда выйдет трек -->
+        <div id="release-message">
+            <span data-i18n="outNow">The single is OUT NOW! Listen on all platforms!</span>
+        </div>
+        <!-- ==================== -->
+
         <div class="section-title" data-i18n="musicTitle">Our Music</div>
 
         <div class="media-grid">
@@ -574,8 +706,8 @@
                 <img src="fb.png" alt="Facebook" class="btn-icon">
                 <span class="btn-text">Facebook</span>
             </a>
-			
-			<a href="https://www.instagram.com/cerboar_official/" class="metal-btn" target="_blank">
+            
+            <a href="https://www.instagram.com/cerboar_official/" class="metal-btn" target="_blank">
                 <img src="ig.png" alt="Instagram" class="btn-icon">
                 <span class="btn-text">INSTAGAM</span>
             </a>
@@ -621,7 +753,15 @@
             followTitle: "Follow Us",
             rights: "All rights reserved.",
             shareBtn: "Share",
-            qrText: "View on mobile"
+            qrText: "View on mobile",
+            
+            // Новые переводы для таймера
+            releaseHeader: "CERBOAR • New Single Release: Sep 24, 2026",
+            days: "Days",
+            hours: "Hours",
+            minutes: "Minutes",
+            seconds: "Seconds",
+            outNow: "The single is OUT NOW! Listen on all platforms!"
         },
         uk: {
             musicTitle: "Наша музика",
@@ -632,7 +772,15 @@
             followTitle: "Підписуйтесь",
             rights: "Всі права захищені.",
             shareBtn: "Поділитися",
-            qrText: "Дивитись на мобільному"
+            qrText: "Дивитись на мобільному",
+            
+            // Новые переводы для таймера
+            releaseHeader: "CERBOAR • Реліз синглу: 24 вересня 2026 р.",
+            days: "Днів",
+            hours: "Годин",
+            minutes: "Хвилини",
+            seconds: "Секунд",
+            outNow: "Сингл ВЖЕ В МЕРЕЖІ! Слухайте на всіх платформах!"
         },
         pl: {
             musicTitle: "Nasza Muzyka",
@@ -643,7 +791,15 @@
             followTitle: "Obserwuj nas",
             rights: "Wszelkie prawa zastrzeżone.",
             shareBtn: "Udostępnij",
-            qrText: "Otwórz na smartfonie"
+            qrText: "Otwórz na smartfonie",
+            
+            // Новые переводы для таймера
+            releaseHeader: "CERBOAR • Premiera singla: 24 września 2026",
+            days: "Dni",
+            hours: "Godzin",
+            minutes: "Minut",
+            seconds: "Sekund",
+            outNow: "Singiel JUŻ DOSTĘPNY! Słuchaj na wszystkich platformach!"
         }
     };
 
@@ -694,7 +850,6 @@
         const shareBtn = document.getElementById('shareBtn');
         if (shareBtn) {
             shareBtn.addEventListener('click', async () => {
-                // Если браузер поддерживает нативное окно "Поделиться"
                 if (navigator.share) {
                     try {
                         await navigator.share({
@@ -706,13 +861,47 @@
                         console.log('Share canceled or failed', err);
                     }
                 } else {
-                    // Резервный вариант для старых ПК-браузеров (копирование ссылки)
                     navigator.clipboard.writeText(window.location.href)
                         .then(() => alert('Link copied to clipboard!'))
                         .catch(err => console.error('Error copying text: ', err));
                 }
             });
         }
+
+        // === ЛОГИКА ТАЙМЕРА ===
+        // УСТАНОВИТЕ ДАТУ РЕЛИЗА ЗДЕСЬ (Год-Месяц-День T Часы:Минуты:Секунды)
+        const releaseDate = new Date("2026-09-24T00:00:00").getTime();
+
+        const timerInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = releaseDate - now;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                const timerContainer = document.getElementById('timerContainer');
+                if (timerContainer) timerContainer.style.display = 'none';
+                
+                const messageEl = document.getElementById('release-message');
+                if (messageEl) messageEl.style.display = 'block';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Функция для добавления нуля, если цифра меньше 10 (кроме дней, как на фото)
+            const formatTime = (time) => time < 10 ? `0${time}` : time;
+
+            const daysEl = document.getElementById("cd-days");
+            if (daysEl) {
+                daysEl.innerText = days; // Дни без ведущего нуля, как на скрине
+                document.getElementById("cd-hours").innerText = formatTime(hours);
+                document.getElementById("cd-minutes").innerText = formatTime(minutes);
+                document.getElementById("cd-seconds").innerText = formatTime(seconds);
+            }
+        }, 1000);
 
 
         // === ЛОГИКА КАРУСЕЛИ И МОДАЛКИ ===
